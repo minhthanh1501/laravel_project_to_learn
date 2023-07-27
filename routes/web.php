@@ -81,6 +81,9 @@ Route::prefix('/admin')->group(function () {
         Route::post('/store', [ProductController::class, 'store'])
             ->name('products.store');
 
+        Route::post('/update/{id}', [ProductController::class, 'update'])
+            ->name('products.update');
+
         Route::get('search', [ProductController::class, 'searchGetProduct'])
             ->name('search');
 

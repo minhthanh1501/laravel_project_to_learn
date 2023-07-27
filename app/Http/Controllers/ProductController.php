@@ -69,6 +69,66 @@ class ProductController extends Controller
         ]);
     }
 
+    public function update(Request $request,$id){
+        try {
+            DB::beginTransaction();
+            //insert product 
+            $dataProductUpdate = [
+                'name' => $request->input('name'),
+                'price' => $request->input('price'),
+                'content' => $request->input('content'),
+                'user_id' => Auth()->id(),
+                'category_id' => $request->input('category_id'),
+            ];
+            $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image_path', 'product');
+
+            if (!empty($dataUploadFeatureImage)) {
+                $dataProductUpdate['feature_image_name'] = $dataUploadFeatureImage['file_name'];
+                $dataProductUpdate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
+            }
+
+            $this->product->find($id)->update($dataProductUpdate);
+            $product = $this->product->find($id);
+
+            // insert detail images product
+            if ($request->hasFile('image_path')) {
+                $this->productImage->where('product_id',$id)->delete();
+
+                foreach ($request->file('image_path') as $fileItem) {
+                    $dataProductImageDetail = $this->storageTraitUploadMultiple($fileItem, 'product');
+                    $product->images()->create([
+                        'image_path' => $dataProductImageDetail['file_path'],
+                        'image_name' => $dataProductImageDetail['file_name']
+                    ]);
+
+                    // $this->productImage::create([
+                    //     'product_id' => $product['id'],
+                    //     'image_path' => $dataProductImageDetail['file_path'],
+                    //     'image_name' => $dataProductImageDetail['file_name']
+                    // ]);
+                }
+            }
+
+            //insert tags for product
+            if (!empty($request->input('tags'))) {
+                foreach ($request->input('tags') as $tagItem) {
+                    $tagInstance = $this->tag->firstOrCreate([
+                        'name' => $tagItem
+                    ]);
+                    $tagIds[] = $tagInstance['id'];
+                }
+                $product->tags()->sync($tagIds);
+            }
+            
+            DB::commit();
+
+            return redirect()->route('products.index');
+        } catch (Exception $ex) {
+            DB::rollBack();
+            Log::error("message: " . $ex->getMessage() . " line : " . $ex->getLine());
+        }
+    }
+
     public function store(Request $request)
     {
         try {
@@ -77,7 +137,6 @@ class ProductController extends Controller
             $dataProductCreate = [
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
-                'content' => $request->input('content'),
                 'content' => $request->input('content'),
                 'user_id' => Auth()->id(),
                 'category_id' => $request->input('category_id'),

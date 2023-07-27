@@ -27,7 +27,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="post" action="{{ route('products.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('products.update', ['id' => $product['id']]) }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label>Tên sản phẩm</label>
@@ -44,7 +44,7 @@
                                 <input type="file" name="feature_image_path" class="form-control-file" >
                                 <div class="col-md-4 feature_image_container">
                                     <div class="row">
-                                        <img class="" src="{{ $product['feature_image_path'] }}" alt="">
+                                        <img class="image_detail_product" src="{{ $product['feature_image_path'] }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <label>Nhập tags cho sản phẩm</label>
                                 <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
                                     @foreach ($product->tags as $tagItem)
-                                        <option value="{{ $tagItem->id }}"selected>{{ $tagItem->name }}</option>
+                                        <option value="{{ $tagItem->name }}"selected>{{ $tagItem->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
