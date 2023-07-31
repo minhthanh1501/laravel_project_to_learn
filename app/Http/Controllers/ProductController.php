@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Components\Recusive;
+use App\Http\Requests\ProductAddRequest;
 use App\Models\Category;
 use App\Models\ProductImage;
 use App\Models\Tag;
@@ -129,7 +130,7 @@ class ProductController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(ProductAddRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -201,5 +202,22 @@ class ProductController extends Controller
 
         return $html;
         
+    }
+
+    public function delete(Request $request, $id)
+    {
+        try {
+            $this->product->find($id)->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+            ], 200);
+        } catch (\Exception $exception) {
+            Log::error('Message: '. $exception->getMessage() . '--line: ' . $exception->getLine());
+            return response()->json([
+                'code' => 500,
+                'message' => 'fail'
+            ], 500);
+        }
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts/admin')
 
 @section('title')
-    Product
+    Slider
 @endsection
 
 @section('css')
@@ -18,7 +18,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         @include('components.content-header', [
-            'name' => 'Product',
+            'name' => 'Slider',
             'key' => 'List',
         ])
         <!-- /.content-header -->
@@ -28,34 +28,32 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{ route('products.create') }}" class="btn btn-success float-right m-2">Add</a>
+                        <a href="{{ route('sliders.create') }}" class="btn btn-success float-right m-2">Add</a>
                     </div>
                     <div class="col-md-12">
                         <table class="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Index</th>
-                                    <th scope="col">Tên sản phẩm</th>
-                                    <th scope="col">Giá</th>
+                                    <th scope="col">Tên Slider</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Hình ảnh</th>
-                                    <th scope="col">Danh mục</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            @foreach ($products as $product)
+                            @foreach ($sliders as $slider)
                                 <tbody>
                                     <tr>
-                                        <th>{{ $product['id'] }}</th>
-                                        <td>{{ $product['name'] }}</td>
-                                        <td>{{ number_format($product['price']) }}</td>
-                                        <td><img class="product_image_150_100" src="{{ $product['feature_image_path'] }}"
+                                        <th>{{ $slider['id'] }}</th>
+                                        <td>{{ $slider['name'] }}</td>
+                                        <td>{{ $slider['description'] }}</td>
+                                        <td><img class="product_image_150_100" src="{{ $slider['image_path'] }}"
                                                 alt=""></td>
-                                        <td>{{ optional($product->category)->name }}</td>
                                         <td>
-                                            <a href="{{ route('products.edit', ['id' => $product['id']]) }}"
+                                            <a href="{{ route('sliders.edit', ['id' => $slider['id']]) }}"
                                                 class="btn btn-warning">Edit</a>
                                             <a href="" 
-                                                data-url="{{ route('products.delete',['id' => $product['id']]) }}"
+                                                data-url="{{ route('sliders.delete',['id' => $slider['id']]) }}"
                                                 class="btn btn-danger action_delete">Delete</a>
 
                                         </td>
@@ -66,7 +64,7 @@
                         </table>
                     </div>
                     <div class="col-md-12">
-                        {{ $products->links() }}
+                        {{ $sliders->links() }}
                     </div>
 
                     <!-- /.col-md-6 -->

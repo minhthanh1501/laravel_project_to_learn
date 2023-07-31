@@ -44,7 +44,7 @@ class CategoryController extends Controller
             'slug' => ''
         ]);
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
 
     public function getCategory($parentId){
@@ -75,17 +75,8 @@ class CategoryController extends Controller
             'slug' => ''
         ]);
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
-
-    // xóa vĩnh viễn
-    // public function delete($id){
-    //     $category = $this->category->find($id);
-    //     $category->delete();
-
-
-    //     return redirect()->route('categories.index');
-    // }
 
     //xóa mềm
     public function delete($id){
@@ -93,7 +84,7 @@ class CategoryController extends Controller
         $category->delete();
 
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('categories.index');
     }
 
 

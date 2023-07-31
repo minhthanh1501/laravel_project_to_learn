@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SliderAdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,19 +77,40 @@ Route::prefix('/admin')->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])
             ->name('products.edit');
 
-        Route::get('/delete/{id}', [ProductController::class, 'delete'])
-            ->name('products.delete');
-
         Route::post('/store', [ProductController::class, 'store'])
             ->name('products.store');
 
         Route::post('/update/{id}', [ProductController::class, 'update'])
             ->name('products.update');
 
+        Route::get('/delete/{id}', [ProductController::class, 'delete'])
+            ->name('products.delete');
+
         Route::get('search', [ProductController::class, 'searchGetProduct'])
             ->name('search');
 
         // Route::put('/update/{id}', [ProductController::class, 'update'])
         //     ->name('menus.update');
+    });
+
+    Route::prefix('sliders')->group(function(){
+        Route::get('/', [SliderAdminController::class,'index'])
+            ->name('sliders.index');
+
+        Route::get('/create', [SliderAdminController::class, 'create'])
+            ->name('sliders.create');
+
+        Route::get('/edit/{id}', [SliderAdminController::class, 'edit'])
+            ->name('sliders.edit');
+
+        Route::get('/delete/{id}', [SliderAdminController::class, 'delete'])
+            ->name('sliders.delete');
+
+        Route::post('/store', [SliderAdminController::class, 'store'])
+            ->name('sliders.store');
+
+        Route::post('/update/{id}', [SliderAdminController::class, 'update'])
+            ->name('sliders.update');
+
     });
 });

@@ -20,6 +20,19 @@
             'name' => 'Product',
             'key' => 'Add',
         ])
+
+        {{-- Error displaying --}}
+        {{-- <div class="col-md-12">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div> --}}
         <!-- /.content-header -->
 
         <!-- Main content -->
@@ -31,12 +44,22 @@
                             @csrf
                             <div class="form-group">
                                 <label>Tên sản phẩm</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm">
+                                <input type="text" name="name"
+                                    class="form-control @error('name') is-invalid @enderror" placeholder="Nhập tên sản phẩm"
+                                    value="{{ old('name') }}">
+                                @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label>Giá sản phẩm</label>
-                                <input type="text" name="price" class="form-control" placeholder="Nhập giá sản phẩm">
+                                <input type="text" name="price"
+                                    class="form-control @error('price') is-invalid @enderror"
+                                    placeholder="Nhập giá sản phẩm" value="{{ old('price') }}">
+                                @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -51,12 +74,16 @@
 
                             <div class="form-group">
                                 <label>Chọn danh mục</label>
-                                <select name="category_id" class="form-control select2_init">
+                                <select name="category_id"
+                                    class="form-control select2_init @error('category_id') is-invalid @enderror">
                                     <option value="0">Chọn danh mục</option>
                                     {!! $htmlOption !!}
-
                                 </select>
+                                @error('category_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+                            
                             <div class="form-group">
                                 <label>Nhập tags cho sản phẩm</label>
                                 <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
@@ -66,8 +93,13 @@
 
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Nội dung sản phẩm</label>
-                                <textarea class="form-control tinymce_editor_init" id="exampleFormControlTextarea1" name="content" rows="3"></textarea>
+                                <textarea class="form-control tinymce_editor_init @error('content') is-invalid @enderror"
+                                    id="exampleFormControlTextarea1" name="content" rows="3">{{ old('content') }}</textarea>
+                                @error('content')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
 
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
@@ -83,7 +115,7 @@
 @endsection
 
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.2/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.2.2/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('admins/product/add/add.js') }}"></script>
