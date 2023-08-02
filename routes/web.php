@@ -6,6 +6,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SliderAdminController;
+use App\Http\Controllers\SettingAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +112,27 @@ Route::prefix('/admin')->group(function () {
 
         Route::post('/update/{id}', [SliderAdminController::class, 'update'])
             ->name('sliders.update');
+
+    });
+
+    Route::prefix('settings')->group(function(){
+        Route::get('/', [SettingAdminController::class,'index'])
+            ->name('settings.index');
+
+        Route::get('/create', [SettingAdminController::class, 'create'])
+            ->name('settings.create');
+
+        Route::get('/edit/{id}', [SettingAdminController::class, 'edit'])
+            ->name('settings.edit');
+
+        Route::get('/delete/{id}', [SettingAdminController::class, 'delete'])
+            ->name('settings.delete');
+
+        Route::post('/store', [SettingAdminController::class, 'store'])
+            ->name('settings.store');
+
+        Route::post('/update/{id}', [SettingAdminController::class, 'update'])
+            ->name('settings.update');
 
     });
 });
