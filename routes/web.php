@@ -5,8 +5,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\SliderAdminController;
 use App\Http\Controllers\SettingAdminController;
+use App\Http\Controllers\UserAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,8 +96,8 @@ Route::prefix('/admin')->group(function () {
         //     ->name('menus.update');
     });
 
-    Route::prefix('sliders')->group(function(){
-        Route::get('/', [SliderAdminController::class,'index'])
+    Route::prefix('sliders')->group(function () {
+        Route::get('/', [SliderAdminController::class, 'index'])
             ->name('sliders.index');
 
         Route::get('/create', [SliderAdminController::class, 'create'])
@@ -112,11 +114,10 @@ Route::prefix('/admin')->group(function () {
 
         Route::post('/update/{id}', [SliderAdminController::class, 'update'])
             ->name('sliders.update');
-
     });
 
-    Route::prefix('settings')->group(function(){
-        Route::get('/', [SettingAdminController::class,'index'])
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SettingAdminController::class, 'index'])
             ->name('settings.index');
 
         Route::get('/create', [SettingAdminController::class, 'create'])
@@ -133,6 +134,47 @@ Route::prefix('/admin')->group(function () {
 
         Route::post('/update/{id}', [SettingAdminController::class, 'update'])
             ->name('settings.update');
+    });
 
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserAdminController::class, 'index'])
+            ->name('users.index');
+
+        Route::get('/create', [UserAdminController::class, 'create'])
+            ->name('users.create');
+
+        Route::get('/edit/{id}', [UserAdminController::class, 'edit'])
+            ->name('users.edit');
+
+        Route::get('/delete/{id}', [UserAdminController::class, 'delete'])
+            ->name('users.delete');
+
+        Route::post('/store', [UserAdminController::class, 'store'])
+            ->name('users.store');
+
+        Route::post('/update/{id}', [UserAdminController::class, 'update'])
+            ->name('users.update');
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('/', [RoleAdminController::class, 'index'])
+            ->name('roles.index');
+
+        Route::get('/create', [RoleAdminController::class, 'create'])
+            ->name('roles.create');
+
+        Route::get('/edit/{id}', [RoleAdminController::class, 'edit'])
+            ->name('roles.edit');
+
+        Route::get('/delete/{id}', [RoleAdminController::class, 'delete'])
+            ->name('roles.delete');
+
+        Route::post('/store', [RoleAdminController::class, 'store'])
+            ->name('roles.store');
+
+        Route::post('/update/{id}', [RoleAdminController::class, 'update'])
+            ->name('roles.update');
+
+        // Route::resource('role', RoleAdminController::class);
     });
 });

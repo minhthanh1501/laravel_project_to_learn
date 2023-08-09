@@ -19,7 +19,7 @@ class SettingAdminController extends Controller
 
     public function index()
     {
-        $settings = $this->setting->latest()->paginate(5);
+        $settings = $this->setting->latest()->paginate(10);
 
         return view('admin.settings.index',[
             'settings' => $settings
@@ -49,8 +49,13 @@ class SettingAdminController extends Controller
         ]);
     }
 
-    public function update(AddSettingRequest $request,$id){
+    public function update(Request $request,$id){
+        $this->setting->find($id)->update([
+            'config_key' => $request->input('config_key'),
+            'config_value' => $request->input('config_value'),
+        ]);
 
+        return redirect()->route('settings.index');
     }
 
     public function delete($id){

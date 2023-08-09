@@ -24,7 +24,7 @@
                             {{-- @method('put') --}}
                             <div class="form-group">
                                 <label>Config Key</label>
-                                <input type="text" name="name" class="form-control" placeholder="Nhập tên danh mục"
+                                <input type="text" name="config_key" class="form-control" 
                                     value="{{ $setting['config_key'] }}">
                             </div>
 
