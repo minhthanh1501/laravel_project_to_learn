@@ -32,7 +32,7 @@ Route::prefix('/admin')->group(function () {
     Route::prefix('categories')->group(function () {
 
         Route::get('/', [CategoryController::class, 'index'])
-            ->name('categories.index');
+            ->name('categories.index')->middleware('can:category-list');
 
         Route::get('/create', [CategoryController::class, 'create'])
             ->name('categories.create');
@@ -52,7 +52,7 @@ Route::prefix('/admin')->group(function () {
 
     Route::prefix('menus')->group(function () {
         Route::get('/', [MenuController::class, 'index'])
-            ->name('menus.index');
+            ->name('menus.index')->middleware('can:menu-list');
 
         Route::post('/store', [MenuController::class, 'store'])
             ->name('menus.store');
