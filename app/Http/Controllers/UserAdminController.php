@@ -60,18 +60,20 @@ class UserAdminController extends Controller
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         // DB::connection()->enableQueryLog();
         $roles = $this->role->get();
         $user = $this->user->find($id);
-        
+
         $rolesOfUser = $user->roles;
         // $queries = DB::getQueryLog();
         // dd($queries);
-        return view('admin.users.edit',compact('roles','user','rolesOfUser'));
+        return view('admin.users.edit', compact('roles', 'user', 'rolesOfUser'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         try {
             DB::beginTransaction();
             $this->user->find($id)->update([
@@ -89,9 +91,10 @@ class UserAdminController extends Controller
         }
     }
 
-    public function delete($id){
-       
+    public function delete($id)
+    {
 
-        return  $this->deleteModelTrait($id,$this->user);
+
+        return  $this->deleteModelTrait($id, $this->user);
     }
 }

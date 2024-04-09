@@ -194,7 +194,7 @@ class ProductController extends Controller
     // test
 
     public function searchGetProduct(Request $request){
-        $productSearch = $this->product->where('name', 'LIKE', '%'.$request->input('query').'%')
+        $productSearch = $this->product->where('name', 'LIKE','%'.$request->input('query').'%')
         ->get();
         
         $html = '';

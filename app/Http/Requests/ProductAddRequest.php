@@ -32,15 +32,15 @@ class ProductAddRequest extends FormRequest
     }
 
     public function messages()
-{
-    return [
-        'name.required' => 'Tên không được để trống',
-        'name.unique' => 'Tên không được phép trùng',
-        'name.max' => 'Tên không được phép quá 255 kí tự',
-        'name.min' => 'Tên không được phép dưới 10 kí tự',
-        'price.required' => 'Giá không được để trống',
-        'categori_id.required' => 'Danh mục không được để trống',
-        'content.required' => 'nội dung không được để trống',
-    ];
-}
+    {
+        return [
+            'name.required' => 'Tên không được để trống',
+            'name.unique' => 'Tên không được phép trùng',
+            'name.max' => 'Tên không được phép quá 255 kí tự',
+            'name.min' => 'Tên không được phép dưới 10 kí tự',
+            'price.required' => 'Giá không được để trống',
+            'categori_id.required' => 'Danh mục không được để trống',
+            'content.required' => 'nội dung không được để trống',
+        ];
+    }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\RoleAdminController;
 use App\Http\Controllers\SliderAdminController;
 use App\Http\Controllers\SettingAdminController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\PermissionAdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -176,5 +178,13 @@ Route::prefix('/admin')->group(function () {
             ->name('roles.update');
 
         // Route::resource('role', RoleAdminController::class);
+    });
+
+    Route::prefix('permissions')->group(function(){
+        Route::get('/create', [PermissionAdminController::class,'create'])
+        ->name('permissions.create');
+
+        Route::post('/store', [PermissionAdminController::class,'store'])
+        ->name('permissions.store');
     });
 });

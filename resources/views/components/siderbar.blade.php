@@ -100,6 +100,15 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="{{ route('permissions.create') }}" class="nav-link">
+              
+              <p>
+                Tạo dữ liệu bảng Permissions
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

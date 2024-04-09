@@ -73,4 +73,6 @@ class RoleAdminController extends Controller
         
         return redirect()->route('roles.index');
     }
+
+    
 }
